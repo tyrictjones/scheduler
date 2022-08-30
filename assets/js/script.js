@@ -2,22 +2,19 @@ $('#currentDay').text(moment().format('dddd, MMM Do'));
 
 var auditTasks = function() {
     $('.hour').each(function() {
-        console.log($(this).text());
         var taskTime = moment($(this).text(), 'h A');
-        console.log(taskTime);
         currentTime = moment().startOf('hour');
-        console.log(currentTime);
 
         if (taskTime < currentTime) {
-            console.log('past hours');
+            $(this).parent().addClass('bg-secondary');
         }
 
         else if (taskTime > currentTime) {
-            console.log('future hours');
+            $(this).parent().addClass('bg-danger');
         }
 
         else {
-            console.log('curren hour');
+            $(this).parent().addClass('bg-success');
         }
     });
 };
