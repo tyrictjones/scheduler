@@ -34,17 +34,34 @@ $('.row').on('click', function() {
 });
 
 // editable textarea is unfocused
-$(".row").on("blur", function() {
+$('textarea').on('blur', function() {
+
     // get current value of textarea
     var text = $(this).val();
+    console.log(text);
 
     // recreate div element
-    var taskDiv = $("<div>")
+    var originalDiv = $("<div>")
     .addClass("row col-10")
     .text(text);
 
     // replace textarea with new content
-    $(this).replaceWith(taskDiv);
+    $(this).replaceWith(originalDiv);
 });
+
+$('.saveBtn').on('click', function() {
+    var taskText = $(this).parent().find('.row').text().trim();
+    var taskTime = $(this).parent().find('.hour').text().trim();
+
+    saveTasks(taskTime, taskText);
+});
+
+var savedTasks = [];
+
+var saveTasks = function(taskTime, taskText) {
+    savedTasks.push({time: taskTime, task: taskText});
+    
+    localStorage.setItem('tasks', JSON.stringify(savedTasks));
+};
 
 auditTasks();
