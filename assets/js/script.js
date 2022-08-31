@@ -1,6 +1,10 @@
+// get the current date with moment js and display as shown in mockup
 $('#currentDay').text(moment().format('dddd, MMM Do'));
 
+// when called, go through time blocks and check whether time has passed
 var auditTasks = function() {
+    // for each div with class 'hour', check whether the hard-coded hour
+    // is less than, equal to, or greater than the start of the current hour
     $('.hour').each(function() {
         var taskTime = moment($(this).text(), 'h A');
         currentTime = moment().startOf('hour');
@@ -49,6 +53,9 @@ $('textarea').on('blur', function() {
     $(this).replaceWith(originalDiv);
 });
 
+
+
+// hour content saved to local storage when button clicked; delete any existing content for that hour
 $('.saveBtn').on('click', function() {
     var taskText = $(this).parent().find('.row').text().trim();
     var taskTime = $(this).parent().find('.hour').text().trim();
@@ -64,4 +71,7 @@ var saveTasks = function(taskTime, taskText) {
     localStorage.setItem('tasks', JSON.stringify(savedTasks));
 };
 
+
+
+// audit tasks on page load/refresh, eventually add interval to run every 30 minutes
 auditTasks();
